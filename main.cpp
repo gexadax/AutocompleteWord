@@ -49,6 +49,21 @@ int main() {
 			std::cout << word << ": " << (search(root, word) ? "такое слово есть" : "такого слова нет");
 		}
 	} while (word.size() > 0);
+	
+	std::string prefix;
+	while (prefix != "q") {
+		std::cout << "¬ведите префикс слова (или введите 'q' дл€ выхода): ";
+		std::cin >> prefix;
+
+		if (prefix != "q") {
+			std::vector<std::string> words = getAllWordsByPrefix(root, prefix);
+			for (const std::string& word : words) {
+				std::cout << word << " ";
+			}
+			std::cout << std::endl;
+		}
+	}
+
 
 	return 0;
 }

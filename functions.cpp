@@ -102,3 +102,50 @@ bool search(TrieNode* root, const std::string& key)
 
 	return (node != nullptr && node->isEndOfWord);
 }
+
+// Функция заполнения вектора всеми словами в Trie, начинающимися с заданного префикса
+void fillVector(TrieNode* root, std::vector<std::string>& result, char buf[], int ind)
+{
+	if (root->isEndOfWord)
+	{
+		buf[ind] = '\0';
+		result.push_back(std::string(buf));
+	}
+
+	for (int i = 0; i < ALPHABET_SIZE; i++)
+	{
+		if (root->children[i])
+		{
+			buf[ind] = i + 'a';
+			fillVector(root->children[i], result, buf, ind + 1);
+		}
+	}
+}
+
+// Функция получения всех слов в Trie, начинающихся с заданного префикса
+std::vector<std::string> getAllWordsByPrefix(TrieNode* root, const std::string& prefix)
+{
+	std::vector<std::string> result;
+	if (!root)
+		return result;
+
+	TrieNode* node = root;
+	char buf[ALPHABET_SIZE] = {};
+	int ind = 0;
+
+	// Поиск узла, соответствующего заданному префиксу
+	for (int i = 0; i < prefix.length(); i++)
+	{
+		int index = prefix[i] - 'a';
+		buf[ind] = prefix[i];
+		ind++;
+		if (!node->children[index])
+			return result;
+
+		node = node->children[index];
+	}
+
+	fillVector(node, result, buf, ind);
+
+	return result;
+}
