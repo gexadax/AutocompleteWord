@@ -1,1 +1,1 @@
-# AutocompleteWord
+# AutocompleteWord skillfactory HomeWork 14.10 Реализовать программу, выполняющую автодополнение введенного слова по изначально заданному словарю.![Пример вывода программы](https://github.com/gexadax/AutocompleteWord/assets/118321455/18843a03-cf55-4854-a8c8-bbfde0221ba7)
