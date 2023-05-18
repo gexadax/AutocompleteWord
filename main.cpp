@@ -33,6 +33,13 @@ int main() {
 		}
 	} while (word.size() > 0);
 
+	std::cout << "\nВведите слова для удаления из словаря\n (введите пустую строку для завершения ввода):\n";
+	do {
+		getline(std::cin, word);
+		if (word.size() > 0) {
+			removeWord(root, word);
+		}
+	} while (word.size() > 0);
 
 	return 0;
 }

@@ -43,3 +43,47 @@ void addWord(TrieNode* root, const std::string& key)
 
 	node->isEndOfWord = true;
 }
+
+// Функция удаления слова из Trie
+TrieNode* removeWord(TrieNode* root, const std::string& key, int depth)
+{
+	if (!root)
+		return nullptr;
+
+	if (depth == key.size())
+	{
+		if (root->isEndOfWord)
+			root->isEndOfWord = false;
+
+		if (isTrieEmpty(root))
+		{
+			delete root;
+			root = nullptr;
+		}
+
+		return root;
+	}
+
+	int index = key[depth] - 'a';
+	root->children[index] = removeWord(root->children[index], key, depth + 1);
+
+	// Если текущий узел не помечен как конец слова и не имеет дочерних узлов, то удаляем его
+	if (isTrieEmpty(root) && root->isEndOfWord == false)
+	{
+		delete root;
+		root = nullptr;
+	}
+
+	return root;
+}
+
+// Функция проверки, пуст ли Trie
+bool isTrieEmpty(TrieNode* root)
+{
+	for (int i = 0; i < ALPHABET_SIZE; i++)
+	{
+		if (root->children[i])
+			return false;
+	}
+	return true;
+}
